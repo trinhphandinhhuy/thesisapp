@@ -1,4 +1,4 @@
-var app = angular.module('thesisApp', ['ngRoute']);
+var app = angular.module('thesisApp', ['ngRoute','ngClickCopy']);
 
 app.config(function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -17,7 +17,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
 app.controller('mainController', function ($location) {
     var vm = this;
-    vm.hostname = $location.host() + "/";
+    vm.link = $location.absUrl();
     vm.createRoom = function () {
         $location.path("/" + vm.roomName);
     }

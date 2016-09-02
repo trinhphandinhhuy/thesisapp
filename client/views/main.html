@@ -5,9 +5,9 @@
 			<img src="img/lamk.png" alt="LAMK" />
 			<img src="img/webrtc.png" alt="LAMK RTC" />
 		</div>
-		<p>Create a room and invite your group</p>
+		<p>Share this link below to invite your group</p>
 		<form ng-submit="mainCtrl.createRoom()">
-			<span>{{ mainCtrl.hostname }}{{ mainCtrl.roomName }}</span>
+			<span>{{ mainCtrl.link }}{{ mainCtrl.roomName }}</span>
 			<input type="text" name="room" ng-model="mainCtrl.roomName" placeholder="choose a room name" required="true">
 			<button type="submit">Create Chat Room</button>
 		</form>
