@@ -1,8 +1,72 @@
-<h1>Room: {{roomCtrl.roomName}}</h1>
-<span>Invite by sharing this link:</span>
-<input type="text" value="{{roomCtrl.link}}">
-<br>
-<br>
-<video id="localVideo" style="height: 150px;"></video>
 
-<div id="remotes"></div>
+<main>
+	<div id="local" class="col-15">
+		<div class="local-container">
+			<div class="col-12">
+				<div class="col-inner">
+					<img src="img/lamk.png" alt="LAMK" />
+					<img src="img/webrtc.png" alt="WebRTC" />
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="col-inner">
+					<button type="button" name="invite" class="invite">
+						<i class="fa fa-chain" style="font-size:16px;color:white;"></i> Invite
+					</button>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="col-inner">
+					<button type="button" name="lock" class="lock">
+						<i class="fa fa-unlock" style="font-size:16px;color:white;"></i> Lock
+					</button>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="col-inner">
+					<button type="button" name="leave" class="leave" ng-click="roomCtrl.leave()">
+						<i class="fa fa-sign-out" style="font-size:16px;color:white;"></i> Leave
+					</button>
+				</div>
+			</div>
+			<hr>
+			<div class="col-12">
+				<div id="nick-container" class="col-inner">
+					<p>Double-click to change user name</p>
+					<p>Click elsewhere to set username</p>
+					<span ng-hide="roomCtrl.editing" ng-dblclick="roomCtrl.editItem()">{{ roomCtrl.nick }}</span>
+					<input ng-show="roomCtrl.editing" type="text" ng-model="roomCtrl.nick" ng-blur="roomCtrl.doneEditing()" autofocus>
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="col-inner">
+					<video id="localVideo" style="" oncontextmenu="return false;" autoplay=""></video>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="col-inner">
+					<button type="button" name="audio" class="setting">
+						<i class="fa fa-microphone" style="font-size:16px;color:white;"></i>
+					</button>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="col-inner">
+					<button type="button" name="video" class="setting" ng-click="roomCtrl.video()">
+						<i class="fa fa-video-camera" style="font-size:16px;color:white;"></i>
+					</button>
+				</div>
+			</div>
+			<hr>
+		</div>
+	</div>
+	<div id="remotes" class="col-70"></div>
+	<div id="chat" class="col-15">
+		<form class="chat-container" ng-submit="roomCtrl.sendMessage()">
+			<h1><i class="fa fa-comment" style="font-size:20px;color:#aaa;"></i> Chat</h1>
+			<div id="conversation"></div>
+			<input type="text" ng-model="roomCtrl.message" name="message" placeholder="Send message" required="true">
+			<input type="file" id="fileToAll">
+		</form>
+	</div>
+</main>
