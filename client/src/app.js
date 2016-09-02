@@ -12,7 +12,7 @@ app.config(function ($routeProvider, $locationProvider) {
             controller: 'roomController',
             controllerAs: 'roomCtrl'
         });
-    //$locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
 });
 
 app.controller('mainController', function ($location) {
@@ -149,10 +149,12 @@ app.controller('roomController', function ($location, $routeParams) {
                 $(".mes.active").removeClass("active");
                 $('#conversation').append("<div id='" + id + "' class='mes other active'>" +
                     "<p class='from'>" + from + "</p>" +
-                    "<p class='content'>" + data.payload + "</p>" +
+                    "<p class='content'>" + data.payload + "<br>" + "</p>" +
                     "</div>");
+            } else {
+                $(".mes.active .content").append(data.payload + "<br>");
             }
-            $(".mes.active .content").append(data.payload + "<br>");
+            
         } else if (data.type === 'nick') {
             peer.nick = data.payload;
         }
