@@ -10,7 +10,7 @@ lamkRTC.config(function($routeProvider, $locationProvider) {
             templateUrl : 'views/room.html',
             controller  : 'roomController'
         });
-    //$locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
 });
 
 lamkRTC.controller("mainController", function($scope, $location) {
