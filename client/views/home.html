@@ -1,0 +1,14 @@
+<main id="landing">
+	<div class="landing">
+		<div class="img">
+			<img src="img/lamk.png" alt="LAMK" />
+			<img src="img/webrtc.png" alt="LAMK RTC" />
+		</div>
+		<p>Create a room and invite your group</p>
+		<form ng-submit="createRoom()">
+			<span>{{ hostname }}{{ roomName }}</span>
+			<input type="text" name="room" ng-model="roomName" placeholder="choose a room name" required="true">
+			<button type="submit">Create Chat Room</button>
+		</form>
+	</div>
+</main>
