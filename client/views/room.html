@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 <main>
 	<div id="local" class="col-15">
 		<div class="local-container">
@@ -13,30 +9,22 @@
 			</div>
 			<div class="col-12">
 				<div class="col-inner">
-<<<<<<< HEAD
 					<button type="button" name="invite" class="invite" ng-click-copy="{{ url }}">
-=======
-					<button type="button" name="invite" class="invite" ng-click-copy="{{ roomCtrl.link }}">
->>>>>>> origin/master
 						<i class="fa fa-chain" style="font-size:16px;color:white;"></i> Invite
 					</button>
 				</div>
 			</div>
 			<div class="col-6">
 				<div class="col-inner">
-					<button type="button" name="lock" class="lock">
-						<i class="fa fa-unlock" style="font-size:16px;color:white;"></i> Lock
+					<button type="button" name="lock" class="setting">
+						<i class="fa fa-unlock" style="font-size:16px;color:#272b2d;"></i> Lock
 					</button>
 				</div>
 			</div>
 			<div class="col-6">
 				<div class="col-inner">
-<<<<<<< HEAD
-					<button type="button" name="leave" class="leave" ng-click="leave()">
-=======
-					<button type="button" name="leave" class="leave" ng-click="roomCtrl.leave()">
->>>>>>> origin/master
-						<i class="fa fa-sign-out" style="font-size:16px;color:white;"></i> Leave
+					<button type="button" name="leave" class="setting" ng-click="leave()">
+						<i class="fa fa-sign-out" style="font-size:16px;color:#272b2d;"></i> Leave
 					</button>
 				</div>
 			</div>
@@ -45,13 +33,8 @@
 				<div id="nick-container" class="col-inner">
 					<p>Double-click to change user name</p>
 					<p>Click elsewhere to set username</p>
-<<<<<<< HEAD
 					<span ng-hide="editing" ng-dblclick="editItem()">{{ nick }}</span>
 					<input ng-show="editing" type="text" ng-model="nick" ng-blur="doneEditing()" autofocus>
-=======
-					<span ng-hide="roomCtrl.editing" ng-dblclick="roomCtrl.editItem()">{{ roomCtrl.nick }}</span>
-					<input ng-show="roomCtrl.editing" type="text" ng-model="roomCtrl.nick" ng-blur="roomCtrl.doneEditing()" autofocus>
->>>>>>> origin/master
 				</div>
 			</div>
 			<div class="col-12">
@@ -62,18 +45,14 @@
 			<div class="col-6">
 				<div class="col-inner">
 					<button type="button" name="audio" class="setting">
-						<i class="fa fa-microphone" style="font-size:16px;color:white;"></i>
+						<i class="fa fa-microphone" style="font-size:16px;color:#272b2d;"></i>
 					</button>
 				</div>
 			</div>
 			<div class="col-6">
 				<div class="col-inner">
-<<<<<<< HEAD
 					<button type="button" name="video" class="setting" ng-click="video()">
-=======
-					<button type="button" name="video" class="setting" ng-click="roomCtrl.video()">
->>>>>>> origin/master
-						<i class="fa fa-video-camera" style="font-size:16px;color:white;"></i>
+						<i class="fa fa-video-camera" style="font-size:16px;color:#272b2d;"></i>
 					</button>
 				</div>
 			</div>
@@ -82,17 +61,10 @@
 	</div>
 	<div id="remotes" class="col-70"></div>
 	<div id="chat" class="col-15">
-<<<<<<< HEAD
 		<form class="chat-container" ng-submit="sendMessage()">
 			<h1><i class="fa fa-comment" style="font-size:20px;color:#aaa;"></i> Chat</h1>
 			<div id="conversation"></div>
 			<input type="text" ng-model="message" name="message" placeholder="Send message" required="true">
-=======
-		<form class="chat-container" ng-submit="roomCtrl.sendMessage()">
-			<h1><i class="fa fa-comment" style="font-size:20px;color:#aaa;"></i> Chat</h1>
-			<div id="conversation"></div>
-			<input type="text" ng-model="roomCtrl.message" name="message" placeholder="Send message" required="true">
->>>>>>> origin/master
 			<input type="file" id="fileToAll">
 		</form>
 	</div>
