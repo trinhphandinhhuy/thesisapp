@@ -47,7 +47,7 @@ lamkRTC.controller("mainController", function ($scope, $location) {
 lamkRTC.controller("roomController", function ($rootScope, $scope, $routeParams, $location, LS) {
     // grab the room from the URL
     var room = $routeParams.roomName;
-
+/*
     $scope.roomStatus = function () {
         return LS.getData().roomStatus;
     };
@@ -67,8 +67,7 @@ lamkRTC.controller("roomController", function ($rootScope, $scope, $routeParams,
         console.log('Leave');
         return $location.path('/');
     }
-
-    //$scope.lockStatus = false;
+*/
     // create our webrtc connection
     var webrtc = new SimpleWebRTC({
         // the id/element dom element that will hold "our" video
@@ -343,7 +342,7 @@ lamkRTC.controller("roomController", function ($rootScope, $scope, $routeParams,
     });
 
     //Lock room
-
+/*
     $("button[name='lock']").click(function ($rootScope) {
         var lockStat = "";
         if ($("button[name='lock'] i").hasClass("fa-unlock")) {
@@ -362,5 +361,5 @@ lamkRTC.controller("roomController", function ($rootScope, $scope, $routeParams,
         console.log($scope.roomStatus() );
         $("button[name='lock'] i").toggleClass("fa-lock").toggleClass("fa-unlock");
         webrtc.sendDirectlyToAll(room, 'lockStatus', $scope.roomStatus());
-    });
+    });*/
 });
