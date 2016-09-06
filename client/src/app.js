@@ -1,29 +1,74 @@
-var lamkRTC = angular.module("LamkRTC", ["ngRoute","ngClickCopy"]);
+var lamkRTC = angular.module("LamkRTC", ["ngRoute", "ngClickCopy"]);
+//var lockStat = false;
 
-lamkRTC.config(function($routeProvider, $locationProvider) {
+lamkRTC.config(function ($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
-            templateUrl : 'views/home.html',
-            controller  : 'mainController'
+            templateUrl: 'views/home.html',
+            controller: 'mainController'
         })
         .when('/:roomName', {
-            templateUrl : 'views/room.html',
-            controller  : 'roomController'
+            templateUrl: 'views/room.html',
+            controller: 'roomController'
         });
+    //Enable HTML5 mode
     $locationProvider.html5Mode(true);
 });
 
-lamkRTC.controller("mainController", function($scope, $location) {
-    $scope.hostname = $location.host() + "/";
-    $scope.createRoom = function() {
-        //console.log("/" + $scope.roomName);
+
+
+lamkRTC.factory("LS", function ($window, $rootScope) {
+    angular.element($window).on('storage', function (event) {
+        if (event.key === 'my-storage') {
+            $rootScope.$apply();
+        }
+    });
+    return {
+        setData: function (val) {
+            $window.localStorage && $window.localStorage.setItem('my-storage', val);
+            return this;
+        },
+        getData: function () {
+            return $window.localStorage && JSON.parse($window.localStorage.getItem('my-storage'));
+        }
+    };
+});
+
+
+
+
+lamkRTC.controller("mainController", function ($scope, $location) {
+    $scope.hostname = $location.absUrl();
+    $scope.createRoom = function () {
         $location.path("/" + $scope.roomName);
     };
 });
 
-lamkRTC.controller("roomController", function($scope, $routeParams, $location) {
+lamkRTC.controller("roomController", function ($rootScope, $scope, $routeParams, $location, LS) {
     // grab the room from the URL
     var room = $routeParams.roomName;
+
+    $scope.roomStatus = function () {
+        return LS.getData().roomStatus;
+    };
+
+    $scope.roomName = function () {
+        return LS.getData().roomName;
+    };
+
+    $scope.update = function (val) {
+        return LS.setData(JSON.stringify(val));
+
+    };
+
+    console.log('Room status: ' + $scope.roomStatus());
+
+    if ($scope.roomName() == room && $scope.roomStatus() == true ) {
+        console.log('Leave');
+        return $location.path('/');
+    }
+
+    //$scope.lockStatus = false;
     // create our webrtc connection
     var webrtc = new SimpleWebRTC({
         // the id/element dom element that will hold "our" video
@@ -32,6 +77,7 @@ lamkRTC.controller("roomController", function($scope, $routeParams, $location) {
         remoteVideosEl: '',
         // immediately ask for camera access
         autoRequestMedia: true,
+        // signaling server
         url: 'https://fxckyou.xyz:8888/',
         debug: false,
         detectSpeakingEvents: true,
@@ -39,53 +85,35 @@ lamkRTC.controller("roomController", function($scope, $routeParams, $location) {
     });
     // when it's ready, join if we got a room from the URL
     webrtc.on('readyToCall', function () {
-        // you can name it anything
+        // if already got a room, then join it
         if (room) {
             webrtc.joinRoom(room);
         }
     });
-    function showVolume(el, volume) {
-        if (!el) return;
-        if (volume < -45) volume = -45; // -45 to -20 is
-        if (volume > -20) volume = -20; // a good range
-        el.value = volume;
-    }
-    // we got access to the camera
+
+    // we got access to the camera and microphone
     webrtc.on('localStream', function (stream) {
-        /*var button = document.querySelector('form>button');
-        if (button) button.removeAttribute('disabled');
-        $('#localVolume').show();*/
-        
-        console.log(stream.getVideoTracks()[0]);
+
+        //toggle webcam on/off
         var video = stream.getVideoTracks()[0];
-        $("button[name='video']").click(function() {
+        $("button[name='video']").click(function () {
             video.enabled = !video.enabled;
             $("button[name='video'] i").toggleClass("fa-video-camera").toggleClass("fa-pause")
         });
-        console.log(stream.getAudioTracks()[0]);
+
+        //toggle microphone on/off
         var audio = stream.getAudioTracks()[0];
-        $("button[name='audio']").click(function() {
+        $("button[name='audio']").click(function () {
             audio.enabled = !audio.enabled;
             $("button[name='audio'] i").toggleClass("fa-microphone").toggleClass("fa-microphone-slash")
         });
     });
+
     // we did not get access to the camera
     webrtc.on('localMediaError', function (err) {
+        alert("Can't get access to camera");
     });
-    // local screen obtained
-    webrtc.on('localScreenAdded', function (video) {
-        video.onclick = function () {
-            video.style.width = video.videoWidth + 'px';
-            video.style.height = video.videoHeight + 'px';
-        };
-        document.getElementById('localScreenContainer').appendChild(video);
-        $('#localScreenContainer').show();
-    });
-    // local screen removed
-    webrtc.on('localScreenRemoved', function (video) {
-        document.getElementById('localScreenContainer').removeChild(video);
-        $('#localScreenContainer').hide();
-    });
+
     // a peer video has been added
     webrtc.on('videoAdded', function (video, peer) {
         console.log('video added', peer);
@@ -127,7 +155,7 @@ lamkRTC.controller("roomController", function($scope, $routeParams, $location) {
             }
             remotes.appendChild(container);
         }
-        
+
     });
     // a peer was removed
     webrtc.on('videoRemoved', function (video, peer) {
@@ -138,14 +166,7 @@ lamkRTC.controller("roomController", function($scope, $routeParams, $location) {
             remotes.removeChild(el);
         }
     });
-    // local volume has changed
-    /*webrtc.on('volumeChange', function (volume, treshold) {
-        showVolume(document.getElementById('localVolume'), volume);
-    });
-    // remote volume has changed
-    webrtc.on('remoteVolumeChange', function (peer, volume) {
-        showVolume(document.getElementById('volume_' + peer.id), volume);
-    });*/
+
     // local p2p/ice failure
     webrtc.on('iceFailed', function (peer) {
         var connstate = document.querySelector('#container_' + webrtc.getDomId(peer) + ' .connectionstate');
@@ -165,7 +186,7 @@ lamkRTC.controller("roomController", function($scope, $routeParams, $location) {
         }
     });
     // Since we use this twice we put it here
-    function setRoom(name) {
+    /*function setRoom(name) {
     }
     if (room) {
         setRoom(room);
@@ -184,69 +205,50 @@ lamkRTC.controller("roomController", function($scope, $routeParams, $location) {
             });
             return false;
         });
-    }
-    var button = document.getElementById('screenShareButton');
-    var setButton = function (bool) {
-        //button.innerText = bool ? 'share screen' : 'stop sharing';
-    };
-    if (!webrtc.capabilities.screenSharing) {
-        //button.disabled = 'disabled';
-    }
-    webrtc.on('localScreenRemoved', function () {
-        setButton(true);
-    });
-    setButton(true);
-    /*button.onclick = function () {
-        if (webrtc.getLocalScreen()) {
-            webrtc.stopScreenShare();
-            setButton(true);
-        } else {
-            webrtc.shareScreen(function (err) {
-                if (err) {
-                    setButton(true);
-                } else {
-                    setButton(false);
-                }
-            });
-        }
-    };*/
+    }*/
+
     //Copy Link to clip board
     $scope.url = $location.$$absUrl;
 
     //Send chat
-    $scope.sendMessage = function() {
+    $scope.sendMessage = function () {
         var id = $(".mes.active").attr("id");
         console.log();
         webrtc.sendDirectlyToAll(room, 'chat', $scope.message);
         if (id != "me") {
             $(".mes.active").removeClass("active");
-            $('#conversation').append("<div id='me' class='mes me active'>" + 
+            $('#conversation').append("<div id='me' class='mes me active'>" +
                 "<p class='from'>Me</p>" +
                 "<p class='content'></p>" +
-            "</div>");
+                "</div>");
         }
         $(".mes.active .content").append($scope.message + "<br>");
+
+
         $scope.message = "";
     };
+
     //Set Nickname
     $scope.nick = "Input your username";
     $scope.editing = false;
-    $scope.setNick = function() {
-        webrtc.sendDirectlyToAll(room,'nick', $scope.nick);
+    $scope.setNick = function () {
+        webrtc.sendDirectlyToAll(room, 'nick', $scope.nick);
     };
-    $scope.editItem = function() {
+    $scope.editItem = function () {
         $scope.editing = true;
     };
-    $scope.doneEditing = function() {
+    $scope.doneEditing = function () {
         $scope.editing = false;
         if ($scope.nick != "Input your username" && $scope.nick != "") {
-            webrtc.sendDirectlyToAll(room,'nick', $scope.nick);
+            webrtc.sendDirectlyToAll(room, 'nick', $scope.nick);
         } else if ($scope.nick == "") {
             $scope.nick = "Input your username";
         }
     };
-    webrtc.on('channelMessage', function(peer, label, data){
-        if(data.type === 'chat') {
+
+    //Receiving chat type + nick type
+    webrtc.on('channelMessage', function (peer, label, data) {
+        if (data.type === 'chat') {
             var id = peer.id;
             var activeID = $(".mes.active").attr("id");
             var from = typeof peer.nick == "undefined" ? id : peer.nick;
@@ -254,15 +256,23 @@ lamkRTC.controller("roomController", function($scope, $routeParams, $location) {
                 $(".mes.active").removeClass("active");
                 $('#conversation').append("<div id='" + id + "' class='mes other active'>" +
                     "<p class='from'>" + from + "</p>" +
-                    "<p class='content'>" + data.payload + "</p>" + 
-                "</div>");
+                    "<p class='content'>" + data.payload + "<br>" + "</p>" +
+                    "</div>");
+            } else {
+                $(".mes.active .content").append(data.payload + "<br>");
             }
-            $(".mes.active .content").append(data.payload + "<br>");
+
         } else if (data.type === 'nick') {
             peer.nick = data.payload;
+        } else if (data.type === 'lockStatus') {
+            if (data.payload == 'true') {
+                $("button[name='lock'] i").toggleClass("fa-lock").toggleClass("fa-unlock");
+            } else {
+                $("button[name='lock'] i").toggleClass("fa-unlock").toggleClass("fa-lock");
+            }
         }
     });
-    
+
     //Leave room
     $scope.leave = function () {
         webrtc.stopLocalVideo();
@@ -320,7 +330,7 @@ lamkRTC.controller("roomController", function($scope, $routeParams, $location) {
         });
     });
     var fileToAll = document.getElementById("fileToAll");
-    fileToAll.addEventListener('change', function() {
+    fileToAll.addEventListener('change', function () {
         var file = fileToAll.files[0];
         console.log(file);
         var i = 0;
@@ -330,5 +340,27 @@ lamkRTC.controller("roomController", function($scope, $routeParams, $location) {
         }
         $('#conversation').append("<p class='file'>You just send a file named '" + file.name + "'</p><a href='" + URL.createObjectURL(file) + "' download='" + file.name + "'>Download</a>");
         $(".mes.active").removeClass("active");
+    });
+
+    //Lock room
+
+    $("button[name='lock']").click(function ($rootScope) {
+        var lockStat = "";
+        if ($("button[name='lock'] i").hasClass("fa-unlock")) {
+            //$scope.update("true");
+            $scope.update({
+                roomName: room,
+                roomStatus: true
+            });
+        } else {
+            //$scope.update("false");
+            $scope.update({
+                roomName: room,
+                roomStatus: false
+            });
+        }
+        console.log($scope.roomStatus() );
+        $("button[name='lock'] i").toggleClass("fa-lock").toggleClass("fa-unlock");
+        webrtc.sendDirectlyToAll(room, 'lockStatus', $scope.roomStatus());
     });
 });
