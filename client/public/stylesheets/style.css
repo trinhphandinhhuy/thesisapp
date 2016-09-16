@@ -5,7 +5,7 @@
 body {
 	width: 100vw;
 	height: 100vh;
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: Gotham Rounded A,Gotham Rounded B,Helvetica,Arial,sans-serif;
 	overflow: hidden;
 }
 main {
@@ -19,7 +19,7 @@ main {
 	right: 0;
 	bottom: 0;
 	margin: auto;
-	width: 400px;
+	width: 402px;
 	height: 400px;
 }
 .landing .img {
@@ -35,18 +35,17 @@ main {
 }
 .landing p {
 	display: block;
-	margin: 5px auto;
+	margin: 30px auto;
 	width: 400px;
 	text-align: center;
 	font-size: 20px;
-	line-height: 25px;
-	color: #4285f4;
+	color: #4d5659;
 }
 .landing form {
 	display: block;
 	margin: 0 auto;
 	width: 400px;
-	height: 120px;
+	height: 81px;
 	line-height: 40px;
 	border: 1px solid #4285f4;
 	font-size: 0;
@@ -57,35 +56,41 @@ main {
 	border-radius: 10px;
 	overflow: hidden;
 }
-.landing form span {
+.landing form div {
 	display: block;
 	width: 100%;
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
 	font-size: 14px;
+	color: #b7c0c3;
+	border-bottom: 1px solid #4285f4;
+}
+.landing form div span {
 	color: #4285f4;
 }
 .landing form input {
-	display: block;
-	width: 100%;
+	display: inline-block;
+	vertical-align: top;
+	width: 50%;
 	height: 40px;
 	line-height: 40px;
 	border: none;
 	text-align: center;
-	font-size: 16px;
 	color: #4285f4;
 }
 .landing form button {
-	display: block;
-	width: 100%;
+	display: inline-block;
+	vertical-align: top;
+	width: 50%;
 	height: 40px;
 	border: none;
 	background-color: #4285f4;
 	color: #fff;
 	cursor: pointer;
+	font-size: 18px;
 }
-input:focus, button:focus  {
+.landing form input:focus, .landing form button:focus  {
 	outline: none;
 }
 .col-15 {
@@ -110,7 +115,7 @@ input:focus, button:focus  {
 }
 #local video {
 	width: 100%;
-	margin-top: 5px;
+	margin-bottom: 10px;
 }
 .col-6 {
 	display: inline-block;
@@ -123,11 +128,10 @@ input:focus, button:focus  {
 	width: 100%;
 }
 .col-inner {
-	padding: 0 5px;
+	padding: 0 10px;
 }
 #local button {
 	width: 100%;
-	margin-top: 5px;
 	cursor: pointer;
 	border: none;
 	-webkit-border-radius: 5px;
@@ -137,27 +141,39 @@ input:focus, button:focus  {
 	border-radius: 5px;
 	font-size: 15px;
 	height: 30px;
-	color: #fff;
-}
-.invite {
-	background: #4285f4;
-}
-.lock {
-	background-color: #34a853;
-}
-.leave {
-	background: #ea4335;
+	margin-bottom: 10px;
 }
 .setting {
-	background-color: #fbbc05;
+	color: #272b2d;
+	background-color: #e6eaed;
+	-o-transition: background .3s ease-in;
+	-ms-transition: background .3s ease-in;
+	-moz-transition: background .3s ease-in;
+    -webkit-transition: background .3s ease-in;
+    transition: background .3s ease-in;
 }
-hr {
-	margin-top: 5px;
+.setting.pause, .setting.mute {
+	background-color: #ea4335;
+}
+.setting:hover  {
+    background-color: #b0bcc6;
+}
+.invite {
+	color: #fff;
+	background-color: #4285f4;
+}
+.border-bottom {
+	width: 100%;
+	height: 1px;
+	background-color: #e6eaed;
+	margin-bottom: 10px;
 }
 #local img {
 	display: inline-block;
 	vertical-align: middle;
 	width: 50%;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 #local input {
 	display: block;
@@ -167,10 +183,12 @@ hr {
 	font-size: 14px;
 	color: #666666;
 	border: 1px solid #aaaaaa;
+	text-align: center;
+	border-bottom: none;
 }
 #local p {
 	width: 100%;
-	height: 20px;
+	line-height: 15px;
 	font-size: 12px;
 	color: #333333;
 	text-align: center
@@ -202,24 +220,23 @@ hr {
 	display: block;
 	width: 100%;
 	height: 100vh;
-	border-left: 1px solid #aaaaaa;
+	border-left: 1px solid #e6eaed;
 }
 #chat h1 {
 	display: block;
-	padding: 0 5%;
-	width: 90%;
-	height: 5vh;
-	line-height: 5vh;
+	padding: 0 10px;
+	height: 7.5vh;
+	line-height: 7.5vh;
 	font-size: 20px;
 	font-weight: normal;
-	border-bottom: 1px solid #aaaaaa;
+	border-bottom: 1px solid #e6eaed;
 	color: #828c8f;
 }
 #conversation {
 	text-align: left;
 	display: block;
 	width: 100%;
-	height: 85vh;
+	height: 80vh;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	font-size: 16px;
@@ -251,10 +268,9 @@ hr {
 	text-indent: 16px;
 }
 #conversation .mes .content {
-	line-height: 25px;
+	line-height: 20px;
 	font-size: 16px;
 	padding: 5px;
-	color: #fff;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	-ms-border-radius: 5px;
@@ -263,23 +279,61 @@ hr {
 }
 #conversation .mes.me .content {
 	text-align: right;
+	color: #fff;
 	background-color: #4285f4;
 }
 #conversation .mes.other .content {
-	background-color: #34a853;
+	color: #272b2d;
+	background-color: #e6eaed;
 }
-
 #chat input[type="text"] {
 	display: block;
 	width:100%;
-	height: 5vh;
+	height: 7.5vh;
 	text-indent: 16px;
-	line-height: 5vh;
+	line-height: 7.5vh;
 	font-size: 16px;
 	border: none;
-	border-top: 1px solid #aaaaaa;
-	border-bottom: 1px solid #aaaaaa;
+	border-top: 1px solid #e6eaed;
+	border-bottom: 1px solid #e6eaed;
+}
+#chat input[type="text"]:focus {
+	outline-color: #4285f4;
 }
 #chat input[type="file"] {
 	line-height: 5vh;
+}
+.noti {
+	display: block;
+	position: fixed;
+	z-index: 1000000;
+	opacity: 0;
+	top: -50px;
+	left: 0;
+	right: 0;
+	margin: auto;
+	text-align: center;
+	color: #ffffff;
+	width: 390px;
+	padding: 10px;
+	font-size: 14px;
+	line-height: 15px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-transition: all 200ms linear; 
+	-moz-transition: all 200ms linear; 
+	-ms-transition: all 200ms linear; 
+	-o-transition: all 200ms linear; 
+	transition: all 200ms linear; 
+}
+.noti.blue { background-color: #4285f4; }
+.noti.red { background-color: #ea4335; }
+.noti.green { background-color: #34a853; }
+.noti.yellow { background-color: #fbbc05 }
+.noti.show {
+	top: 20px;
+	opacity: 1;
 }

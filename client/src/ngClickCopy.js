@@ -13,7 +13,7 @@ angular.module('ngClickCopy', []).service('ngCopy', ['$window', function ($windo
 		try {
 			var successful = document.execCommand('copy');
 			var msg = successful ? 'successful . Link has been saved to clipboard. Send it to your friend to start group chat' : 'unsuccessful. Use manual copy + paste to send the link to your friends.';
-            alert('Copying command was ' + msg);
+			alert('Copying command was ' + msg);
 		} catch (err) {
 			alert("Copy to clipboard: Ctrl+C, Enter", toCopy);
 		}

@@ -1,5 +1,3 @@
-
-
 lamkRTC.controller("roomController", function ($rootScope, $scope, $routeParams, $location) {
     // grab the room from the URL
     var room = $routeParams.roomName;
@@ -53,6 +51,8 @@ lamkRTC.controller("roomController", function ($rootScope, $scope, $routeParams,
     // a peer video has been added
     webrtc.on('videoAdded', function (video, peer) {
         console.log('video added', peer);
+        var from = typeof peer.nick != "undefined" ? peer.nick : peer.id;
+        notification("videoAdded",from);
         var remotes = document.getElementById('remotes');
         if (remotes) {
             var container = document.createElement('div');
@@ -96,6 +96,8 @@ lamkRTC.controller("roomController", function ($rootScope, $scope, $routeParams,
     // a peer was removed
     webrtc.on('videoRemoved', function (video, peer) {
         console.log('video removed ', peer);
+        var from = typeof peer.nick != "undefined" ? peer.nick : peer.id;
+        notification("videoRemoved",from);
         var remotes = document.getElementById('remotes');
         var el = document.getElementById(peer ? 'container_' + webrtc.getDomId(peer) : 'localScreenContainer');
         if (remotes && el) {
@@ -172,6 +174,7 @@ lamkRTC.controller("roomController", function ($rootScope, $scope, $routeParams,
     };
     $scope.editItem = function () {
         $scope.editing = true;
+         $scope.nick = "";
     };
     $scope.doneEditing = function () {
         $scope.editing = false;
@@ -199,6 +202,8 @@ lamkRTC.controller("roomController", function ($rootScope, $scope, $routeParams,
             }
 
         } else if (data.type === 'nick') {
+            var from = typeof peer.nick != "undefined" ? peer.nick : peer.id;
+            notification("changeName", from, data.payload);
             peer.nick = data.payload;
         } else if (data.type === 'lockStatus') {
             if (data.payload == 'true') {

@@ -6,7 +6,7 @@
 		</div>
 		<p>Create a room and invite your group</p>
 		<form ng-submit="createRoom()">
-			<span>{{ hostname }}{{ roomName }}</span>
+			<div><b>{{ hostname }}</b><span>{{ roomName }}</span></div>
 			<input type="text" name="room" ng-model="roomName" placeholder="choose a room name" required="true">
 			<button type="submit">Create Chat Room</button>
 		</form>
