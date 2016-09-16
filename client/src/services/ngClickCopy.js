@@ -25,7 +25,7 @@ angular.module('ngClickCopy', []).service('ngCopy', ['$window', function ($windo
 		restrict: 'A',
 		link: function (scope, element, attrs) {
 			element.bind('click', function (e) {
-				ngCopy(attrs.ngClickCopy);
+				ngCopy.CopyToClipBoard(attrs.ngClickCopy);
 			});
 		}
 	}
