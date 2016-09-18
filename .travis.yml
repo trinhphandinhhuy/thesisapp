@@ -10,6 +10,7 @@ before_install:
 
 before_script:
   - npm install
+  - export CHROME_BIN=/usr/local/bin/my-chrome-build
 
 script: node_modules/karma/bin/karma start karma.conf.js --single-run
 
