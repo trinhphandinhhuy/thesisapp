@@ -6,7 +6,7 @@ angular.module('ngClickCopy', []).service('ngCopy', ['$window', function ($windo
 		position: 'fixed',
 		opacity: '0'
 	});
-	return {CopyToClipBoar : function (toCopy) {
+	return {CopyToClipBoard : function (toCopy) {
 		textarea.val(toCopy);
 		body.append(textarea);
 		textarea[0].select();
