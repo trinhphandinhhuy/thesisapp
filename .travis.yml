@@ -4,6 +4,18 @@ sudo: false
 
 node_js:
   - "6"
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+
+before_script:
+  - npm install
+
+script: node_modules/karma/bin/karma start karma.conf.js --single-run
+
+branches:
+  only:
+  - master
 
 after_success:
   - |
