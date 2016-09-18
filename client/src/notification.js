@@ -10,7 +10,7 @@ function notification(event, peer1, peer2) {
 		"lockRoom": new e("Room is now locked","green"),
 		"unlockRoom": new e("Room is now unlocked","red"),
 		"successfulCopy": new e("Copying command was successful . Link has been saved to clipboard. Send it to your friend to start group chat","blue"),
-	"unsuccessfulCopy": new e("Copying command was unsuccessful. Use manual copy + paste to send the link to your friends.","red")
+		"unsuccessfulCopy": new e("Copying command was unsuccessful. Use manual copy + paste to send the link to your friends.","red")
 	};
 	var noti = $("<div class='noti " + trigger[event].color + "'>" + trigger[event].message + "</div>");
 	$("#notification").append(noti);
