@@ -1,26 +1,17 @@
-<main class="container">
-    <!--<h1 style="color:green;">Pass Test</h1>-->
-    <form ng-submit="createRoom()" class="landing">
-        <div class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-                <div class="row">
-                    <div class="img">
-                        <img src="img/lamk.png" alt="LAMK" />
-                        <img src="img/webrtc.png" alt="WebRTC" />
-                    </div>
-                    <!--<img src="img/lamk.png" alt="LAMK" />-->
-                    <div class="text-center">
-                        <h4>Create a room and invite your friends</h4>
-                        <p>{{ hostname }}<b>{{ roomName }}</b></p>
-                        <div class="form-group">
-                            <input type="text" name="room" ng-model="roomName" placeholder="Choose a Room Name" required="true" class="form-control text-center">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="form-control btn btn-primary">Create Chat Room</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--<h1 style="color:green;">Pass Test</h1>-->
+<form ng-submit="createRoom()" class="landing">
+    <div class="col-sm-4 col-sm-offset-4">
+        <div class="img">
+            <img src="img/lamk.png" alt="LAMK" />
+            <img src="img/webrtc.png" alt="WebRTC" />
         </div>
-    </form>
-</main>
+        <h4 class="text-center">Create a room and invite your friends</h4>
+        <div class="input-group form-group">
+            <span class="input-group-addon"><b>{{ hostname }}</b></span>
+            <input type="text" name="room" ng-model="roomName" class="form-control" placeholder="Choose a Room Name" required="true">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="form-control btn btn-primary">Create Chat Room</button>
+        </div>
+    </div>
+</form>

@@ -3,3 +3,4 @@ jsconfig.json
 .vscode/
 npm-debug.log
 config/config.js
+.sass-cache

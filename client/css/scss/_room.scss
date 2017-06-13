@@ -1,19 +1,7 @@
 .local-container {
-    padding: 0 15px;
+    padding: 15px;
     height: 100vh;
     border-right: 1px solid #aaaaaa;
-
-    .img {
-        font-size: 0;
-        padding: 15px;
-        margin-bottom: 15px;
-
-        img {
-            width: 50%;
-            display: inline-block;
-            vertical-align: middle;
-        }
-    }
 
     .local-video {
         position: relative;
