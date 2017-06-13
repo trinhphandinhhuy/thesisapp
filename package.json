@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "WebRTC",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "grunt": "grunt",
+    "start": "node server.js",
+    "postinstall": "bower install",
+    "test": "karma start karma.conf.js"
+  },
   "dependencies": {
     "body-parser": "^1.13.3",
     "bower": "^1.8.0",
