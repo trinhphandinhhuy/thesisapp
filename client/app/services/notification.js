@@ -1,3 +1,5 @@
+'use strict';
+
 function notification(event, peer1, peer2) {
     var e = function(message, color) {
         this.message = message;
