@@ -1,0 +1,157 @@
+.local-container {
+    padding: 0 15px;
+    height: 100vh;
+    border-right: 1px solid #aaaaaa;
+
+    .img {
+        font-size: 0;
+        padding: 15px;
+        margin-bottom: 15px;
+
+        img {
+            width: 50%;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    .local-video {
+        position: relative;
+        margin-bottom: 10px;
+
+        video {
+            width: 100%;
+        }
+
+        .state {
+            position: absolute;
+            right: 5px;
+            bottom: 10px;
+            width: 60px;
+            height: 30px;
+            color: #fff;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 10;
+            font-size: 0;
+
+            .state-box {
+                width: 30px;
+                height: 30px;
+                display: inline-block;
+                vertical-align: top;
+                font-size: 14px;
+                text-align: center;
+                line-height: 30px;
+            }
+        }
+
+    }
+}
+
+.border-bottom {
+    float: left;
+    width: 100%;
+    height: 1px;
+    margin-bottom: 15px;
+    background-color: #cccccc;
+}
+
+.videoContainers {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100vh;
+
+    video {
+        width: 100%;
+        transform: scaleX(-1);
+        object-fit: fill;
+    }
+}
+
+.chat-container {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    border-left: 1px solid #e6eaed;
+
+    h3 {
+        margin: 0;
+        padding: 10px 0;
+        text-align: center;
+        height: 50px;
+        color: #aaaaaa;
+        border-bottom: 1px solid #e6eaed;
+    }
+
+    input[type="text"] {
+        display: block;
+        width: 100%;
+        height: 30px;
+        border: none;
+        text-indent: 15px;
+        border-top: 1px solid #e6eaed;
+        border-bottom: 1px solid #e6eaed;
+    }
+
+    input[type="file"] {
+        height: 30px;
+    }
+
+    #conversation {
+        text-align: left;
+        display: block;
+        width: 100%;
+        height: calc(100vh - 110px);
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        p.file {
+            display: block;
+            margin: 0 auto;
+            width: 90%;
+            line-height: 20px;
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+        }
+
+        a {
+            display: block;
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            font-size: 16px;
+            text-align: center;
+            color: blue;
+        }
+
+        .mes {
+            padding: 5px;
+
+            .from {
+                margin: 0;
+                font-size: 12px;
+                color: #aaa;
+                text-indent: 16px;
+            }
+
+            .content {
+                margin: 0;
+                line-height: 20px;
+                padding: 5px 10px;
+
+                @include border-radius(5px);
+            }
+
+            &.me .content {
+                color: #fff;
+                background-color: #4285f4;
+            }
+
+            &.other .content {
+                color: #272b2d;
+                background-color: #e6eaed;
+            }
+        }
+    }
+}

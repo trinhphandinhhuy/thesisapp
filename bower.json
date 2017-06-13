@@ -1,0 +1,25 @@
+{
+  "name": "thesisapp",
+  "description": "WebRTC",
+  "main": "index.js",
+  "authors": [
+    "Hieu Doan <hieudoan412@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/trinhphandinhhuy/thesisapp",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/libs/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.6.4",
+    "bootstrap": "^3.3.7",
+    "SimpleWebRTC": "^3.0.0",
+    "angular": "^1.6.4",
+    "font-awesome": "^4.7.0"
+  }
+}
