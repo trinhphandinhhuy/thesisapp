@@ -12,8 +12,7 @@ module.exports = function(grunt) {
                         "./client/app/app.routes.js",
                         "./client/app/app.controller.js",
                         "./client/app/components/*/controller.js",
-                        "./client/app/services/ngClickCopy.js",
-                        "./client/app/services/notification.js"
+                        "./client/app/services/*/service.js"
                     ]
                 }
             }
